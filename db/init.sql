@@ -10,7 +10,7 @@ CREATE TABLE users (
 
 CREATE TABLE games (
     game_id SERIAL PRIMARY KEY,
-    user INTEGER REFERENCES users(user_id) ON DELETE CASCADE NOT NULL,
+    user_id INTEGER REFERENCES users(user_id) ON DELETE CASCADE NOT NULL,
     result result_enum NOT NULL,
     result_method result_method_enum NOT NULL,
     opening_name VARCHAR(100) NOT NULL,

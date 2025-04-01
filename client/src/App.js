@@ -1,14 +1,16 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router";
-import Home from "./pages/home";
-// import AnalyzeGames from './components/AnalyzeGames';
+import Home from "./pages/Home";
+import Layout from "./components/Layout";
 
 function App() {
   return (
     <Router>
-      <Routes>
-        <Route path="/" element={<Home />} />
-      </Routes>
+      <Layout>
+        <Routes>
+          <Route path="/" element={<Home />} />
+        </Routes>
+      </Layout>
     </Router>
   );
 }

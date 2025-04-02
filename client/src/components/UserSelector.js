@@ -30,15 +30,41 @@ const UserSelector = () => {
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
       />
-      <ul>
+      <div className="user-list">
         {users.map((user) => (
-          <li key={user.id} onClick={() => setSelectedUser(user.id)}>
-            {user.name}
-          </li>
+          <UserProfile key={user.id} user={user} onSelect={setSelectedUser} />
         ))}
-      </ul>
+      </div>
     </div>
   );
 };
 
 export default UserSelector;
+
+const UserProfile = ({ user, onSelect }) => {
+  return (
+    <div className="user-profile" onClick={() => onSelect(user.id)}>
+      <img
+        className="user-avatar"
+        src={user?.avatar_url ?? DEFAULT_AVATAR_URL}
+        alt={`${user.username}'s avatar`}
+      />
+      <div className="user-info">
+        <div className="user-header">
+          <span className="user-username">{user.username}</span>
+          {user?.flair_url && (
+            <img className="user-flair" src={user.flair_url} alt="User flair" />
+          )}
+        </div>
+        {user?.first_name || user?.last_name ? (
+          <div className="user-fullname">
+            {user?.first_name} {user?.last_name}
+          </div>
+        ) : null}
+      </div>
+    </div>
+  );
+};
+
+const DEFAULT_AVATAR_URL =
+  "https://png.pngtree.com/png-vector/20240529/ourmid/pngtree-chess-icon-in-square-with-shadow-on-white-background-vector-png-image_6985169.png";

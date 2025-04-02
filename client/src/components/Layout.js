@@ -9,8 +9,10 @@ const Layout = ({ children }) => {
         <h1>Chess Stats Tracker</h1>
         <p className="subheader">Track. Analyze. Get better.</p>
       </header>
-      <UserSelector />
-      <main className="content">{children}</main>
+      <div className="main-container">
+        <UserSelector />
+        <main className="content">{children}</main>
+      </div>
     </div>
   );
 };

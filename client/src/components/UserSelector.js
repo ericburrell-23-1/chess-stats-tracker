@@ -43,7 +43,7 @@ export default UserSelector;
 
 const UserProfile = ({ user, onSelect }) => {
   return (
-    <div className="user-profile" onClick={() => onSelect(user.id)}>
+    <div className="user-profile" onClick={() => onSelect(user)}>
       <img
         className="user-avatar"
         src={user?.avatar_url ?? DEFAULT_AVATAR_URL}

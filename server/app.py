@@ -31,7 +31,7 @@ def send_dummy_users():
     dummy_users = {"users": [
         {"username": "ericburrell231", "id": 1,
             "avatar_url": "https://images.chesscomfiles.com/uploads/v1/user/273837733.68832df5.200x200o.b97fc929c676.jpg",
-            "flair_url": "https://images.chesscomfiles.com/chess-flair/hosts/levy.png",
+            "flair_url": "https://images.chesscomfiles.com/chess-flair/hosts/levy.svg",
             "first_name": "Eric",
             "last_name": "Burrell"
          },
@@ -40,10 +40,12 @@ def send_dummy_users():
             "first_name": "Hikaru",
             "last_name": "Nakamura"},
         {"username": "magnuscarlsen", "id": 3,
+            "avatar_url": "https://upload.wikimedia.org/wikipedia/commons/5/52/HansMokeNiemann23.jpg",
             "flair_url": "https://images.chesscomfiles.com/chess-flair/membership_icons/diamond_traditional.svg",
-            "first_name": "Hikaru",
-            "last_name": "Nakamura"},
+            "first_name": "Hans",
+            "last_name": "Niemann"},
         {"username": "gothamchess", "id": 4,
+            "avatar_url": "https://images.chesscomfiles.com/uploads/v1/user/33945736.eb0c3771.200x200o.cf06060d2143.png",
             "flair_url": "https://images.chesscomfiles.com/chess-flair/membership_icons/diamond_traditional.svg",
             "first_name": "Levy",
             "last_name": "Rozman"},

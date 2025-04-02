@@ -26,5 +26,14 @@ def get_games():
     return jsonify(games)
 
 
+@app.route('/api/users', methods=['GET'])
+def send_dummy_users():
+    dummy_users = {"users": [
+        {"name": "Eric", "id": 1},
+        {"name": "HikaruNakamura", "id": 2}
+    ]}
+    return jsonify(dummy_users)
+
+
 if __name__ == "__main__":
     app.run(debug=True)

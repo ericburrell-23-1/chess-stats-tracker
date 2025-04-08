@@ -30,9 +30,14 @@ const UserSelector = () => {
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
       />
-      <div className="user-list">
+      <div className="user-list ">
         {users.map((user) => (
-          <UserProfile key={user.id} user={user} onSelect={setSelectedUser} />
+          <UserProfile
+            key={user.id}
+            user={user}
+            onSelect={setSelectedUser}
+            selectedClass={`${selectedUser?.id === user.id ? "selected" : ""}`}
+          />
         ))}
       </div>
     </div>
@@ -41,9 +46,12 @@ const UserSelector = () => {
 
 export default UserSelector;
 
-const UserProfile = ({ user, onSelect }) => {
+const UserProfile = ({ user, onSelect, selectedClass }) => {
   return (
-    <div className="user-profile" onClick={() => onSelect(user)}>
+    <div
+      className={`user-profile ${selectedClass}`}
+      onClick={() => onSelect(user)}
+    >
       <img
         className="user-avatar"
         src={user?.avatar_url ?? DEFAULT_AVATAR_URL}

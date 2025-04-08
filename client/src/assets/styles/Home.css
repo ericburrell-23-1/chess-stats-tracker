@@ -33,3 +33,85 @@
   color: #007bff;
   font-weight: 600;
 }
+
+/* AI Component */
+/* AI Response Container */
+.ai-response-container {
+  background: #f9f9f9;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+  max-width: 600px;
+  margin: 20px auto;
+  text-align: center;
+}
+
+/* Heading */
+.ai-response-container h3 {
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 15px;
+}
+
+/* AI Prompt Container */
+.ai-prompt {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+/* Input Field */
+.ai-input {
+  width: 100%;
+  max-width: 400px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.3s ease-in-out;
+}
+
+.ai-input:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.2);
+}
+
+/* Button */
+.ai-button {
+  padding: 8px 12px;
+  font-size: 14px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.ai-button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.ai-button:hover:not(:disabled) {
+  background-color: #0056b3;
+}
+
+/* AI Response */
+.ai-response {
+  margin-top: 15px;
+  font-size: 14px;
+  color: #444;
+  background: #fff;
+  padding: 10px;
+  border-radius: 5px;
+  border-left: 4px solid #007bff;
+  text-align: left;
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+}

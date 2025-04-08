@@ -82,6 +82,19 @@
   background: #e9ecef;
 }
 
+.user-profile.selected {
+  background: #007bff;
+  color: white;
+}
+
+.user-profile.selected .user-fullname {
+  color: rgb(208, 208, 208);
+}
+
+.user-profile.selected:hover {
+  background: #0067d5;
+}
+
 .user-info {
   flex-grow: 1;
 }

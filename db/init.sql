@@ -6,6 +6,7 @@ CREATE TYPE chess_title_enum as ENUM ('CM', 'NM', 'FM', 'IM', 'GM', 'WCM', 'WFM'
 
 CREATE TABLE users (
   id SERIAL PRIMARY KEY,
+  chesscom_id INTEGER UNIQUE NOT NULL,
   username VARCHAR(25) UNIQUE NOT NULL,
   first_name VARCHAR(50),
   last_name VARCHAR(50),
@@ -13,7 +14,8 @@ CREATE TABLE users (
   chess_title chess_title_enum,
   country_name VARCHAR(60),
   avatar_url TEXT,
-  flair_url TEXT
+  flair_url TEXT,
+  last_game_stored_date TEXT
 );
 
 CREATE TABLE games (

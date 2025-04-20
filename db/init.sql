@@ -15,7 +15,10 @@ CREATE TABLE users (
   country_name VARCHAR(60),
   avatar_url TEXT,
   flair_url TEXT,
-  last_game_stored_date TEXT
+  first_game_stored_date TEXT,
+  last_game_stored_date TEXT,
+  first_game_analyzed_date TEXT,
+  last_game_analyzed_date TEXT
 );
 
 CREATE TABLE games (
@@ -26,7 +29,8 @@ CREATE TABLE games (
     opening_name VARCHAR(100) NOT NULL,
     time_control VARCHAR(20) NOT NULL,
     move_sequence TEXT NOT NULL,
-    date_played DATE NOT NULL
+    date_played DATE NOT NULL,
+    game_analyzed BOOLEAN
 );
 
 CREATE TABLE moves (

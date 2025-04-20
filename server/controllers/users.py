@@ -3,8 +3,40 @@ from helper.db import get_db_connection, user_exists
 from services.chess_api_service import fetch_user_profile, fetch_unofficial_user_data
 
 
-def get_all_users():
-    pass
+def get_all_users(search_term):
+    conn = get_db_connection()
+
+    search = "%"
+    if search_term:
+        search = f"%{search_term}%"
+
+    print(f"Querying db with search param = {search}")
+    try:
+        results = {}
+        with conn.cursor() as cur:
+            select_query = """
+                SELECT * FROM users
+                WHERE username ILIKE %s
+                    OR first_name ILIKE %s
+                    OR last_name ILIKE %s
+                    OR (first_name || ' ' || last_name) ILIKE %s
+                ORDER BY last_accessed DESC
+                LIMIT 10
+            """
+
+            cur.execute(select_query, (search, search, search, search))
+            rows = cur.fetchall()
+            colnames = [desc[0] for desc in cur.description]
+            users = [dict(zip(colnames, row)) for row in rows]
+
+        return {"users": users}, 200
+
+    except Exception as e:
+        print(f"Error getting users: {e}")
+        return {"error": "Database error"}, 500
+
+    finally:
+        conn.close()
 
 
 def get_user_by_id(user_id):
@@ -25,13 +57,25 @@ def add_new_user(username):
         return {"message": f"User '{username}' already exists"}, 200
 
     name = profile.get("name", "")
-    first_name = name.split()[0] if name else None
-    last_name = name.split()[1, ] if name and len(name.split()) > 1 else None
+    if name:
+        name_parts = name.split()
+        first_name = name_parts[0]
+        last_name = " ".join(name_parts[1:]) if len(name_parts) > 1 else None
+        print("First and last name assigned from official profile.")
+    else:
+        first_name = None
+        last_name = None
+        print("First and last name assigned as none.")
 
     if unofficial:
-        first_name = unofficial.get("first_name", first_name)
-        last_name = unofficial.get("last_name", last_name)
+        u_first = unofficial.get("firstName")
+        u_last = unofficial.get("lastName")
+        if u_first and u_last:
+            first_name = u_first
+            last_name = u_last
+            print("First and last name re-assigned from unofficial data.")
 
+    print(f"Unofficial: {unofficial}")
     user_data = {
         "chesscom_id": profile.get("player_id"),
         "username": profile.get("username"),
@@ -39,7 +83,7 @@ def add_new_user(username):
         "last_name": last_name,
         "country_name": extract_country_name(profile.get("country")),
         "avatar_url": profile.get("avatar"),
-        "flair_url": unofficial.get("flair", {}).get("images", {}).get("svg") if unofficial else None,
+        "flair_url": ((unofficial.get("flair") or {}).get("images") or {}).get("svg", None) if unofficial else None,
         "chess_title": profile.get("title"),
     }
 
@@ -56,7 +100,7 @@ def add_new_user(username):
             cur.execute(insert_query, user_data)
             conn.commit()
         conn.close()
-        return {"message": "User created"}, 201
+        return {"message": f"User '{username}' added"}, 201
     except Exception as e:
         print(f"Error creating user: {e}")
         conn.close()

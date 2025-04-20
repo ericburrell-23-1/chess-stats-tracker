@@ -17,3 +17,19 @@ export const fetchUsers = async (searchTerm = "") => {
     return [];
   }
 };
+
+export const addNewUser = async (username) => {
+  try {
+    const url = new URL(`${API_BASE_URL}/api/users/new-user/${username}`);
+
+    const response = await fetch(url, { method: "POST" });
+
+    if (!response.ok) {
+      throw new Error("Failed to add new user");
+    }
+    return await response.json();
+  } catch (error) {
+    console.error("Error adding new user:", error);
+    return null;
+  }
+};

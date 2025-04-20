@@ -127,3 +127,51 @@
   border-radius: 50%;
   margin-right: 10px;
 }
+
+.toggle-user-list {
+  margin: 0.75rem auto;
+  background: none;
+  border: none;
+  font-size: 0.9rem;
+  color: #333;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: color 0.2s ease;
+}
+
+.toggle-user-list:hover {
+  color: #0077cc; /* or whatever your accent color is */
+}
+
+.toggle-arrow {
+  font-size: 0.8rem;
+  line-height: 1;
+  margin-top: 2px;
+}
+
+/* For smooth expand/collapse animation */
+.user-list {
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+}
+
+.add-user-profile {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  background-color: #f8f9fa;
+  border: 1px dashed #ccc;
+  padding: 8px;
+  margin: 4px 0;
+  border-radius: 6px;
+  transition: background-color 0.2s;
+}
+.add-user-profile:hover {
+  background-color: #e9ecef;
+}
+.add-user-icon {
+  font-size: 1.5rem;
+  margin-right: 12px;
+}

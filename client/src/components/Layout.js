@@ -1,5 +1,7 @@
 import React from "react";
 import UserSelector from "./UserSelector";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import "../assets/styles/Layout.css";
 
 const Layout = ({ children }) => {
@@ -13,6 +15,7 @@ const Layout = ({ children }) => {
         <UserSelector />
         <main className="content">{children}</main>
       </div>
+      <ToastContainer position="top-right" autoClose={3000} />
     </div>
   );
 };

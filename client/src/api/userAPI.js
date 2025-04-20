@@ -21,15 +21,12 @@ export const fetchUsers = async (searchTerm = "") => {
 export const addNewUser = async (username) => {
   try {
     const url = new URL(`${API_BASE_URL}/api/users/new-user/${username}`);
-
     const response = await fetch(url, { method: "POST" });
+    const data = await response.json();
 
-    if (!response.ok) {
-      throw new Error("Failed to add new user");
-    }
-    return await response.json();
+    return { status: response.status, data };
   } catch (error) {
     console.error("Error adding new user:", error);
-    return null;
+    return { status: 500, data: { error: "Network error" } };
   }
 };

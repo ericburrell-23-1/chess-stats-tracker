@@ -12,7 +12,6 @@ def get_all_users(search_term):
 
     print(f"Querying db with search param = {search}")
     try:
-        results = {}
         with conn.cursor() as cur:
             select_query = """
                 SELECT * FROM users
@@ -20,11 +19,14 @@ def get_all_users(search_term):
                     OR first_name ILIKE %s
                     OR last_name ILIKE %s
                     OR (first_name || ' ' || last_name) ILIKE %s
-                ORDER BY last_accessed DESC
+                ORDER BY 
+                    (LOWER(username) = LOWER(%s)) DESC,
+                    last_accessed DESC
                 LIMIT 10
             """
 
-            cur.execute(select_query, (search, search, search, search))
+            cur.execute(select_query, (search, search,
+                        search, search, search_term))
             rows = cur.fetchall()
             colnames = [desc[0] for desc in cur.description]
             users = [dict(zip(colnames, row)) for row in rows]

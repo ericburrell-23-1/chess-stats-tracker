@@ -1,6 +1,7 @@
 import React, { useContext, useState, useEffect } from "react";
 import { UserContext } from "../context/UserContext";
 import { fetchUsers, addNewUser } from "../api/userAPI";
+import { toast } from "react-toastify";
 
 const UserSelector = () => {
   const { selectedUser, setSelectedUser } = useContext(UserContext);
@@ -14,6 +15,27 @@ const UserSelector = () => {
     searchTerm.length > 0 &&
     !exactMatch &&
     !users.some((u) => u.username === "loading");
+
+  const handleAddUser = async () => {
+    const { status, data } = await addNewUser(searchTerm);
+
+    switch (status) {
+      case 201:
+        toast.success(data.message);
+        break;
+      case 200:
+        toast.info(data.message);
+        break;
+      case 404:
+        toast.warning("User not found");
+        break;
+      default:
+        toast.error("An error occured while adding the user.");
+        break;
+    }
+    const updatedUsers = await fetchUsers(searchTerm);
+    setUsers(updatedUsers?.users ?? []);
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -53,12 +75,7 @@ const UserSelector = () => {
           />
         ))}
         {showAddUserOption && (
-          <AddUserProfile
-            username={searchTerm}
-            onAdd={() => {
-              addNewUser(searchTerm);
-            }}
-          />
+          <AddUserProfile username={searchTerm} onAdd={handleAddUser} />
         )}
       </div>
       {users.length > 3 && (

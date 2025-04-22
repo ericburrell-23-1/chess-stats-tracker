@@ -63,6 +63,8 @@ const PlayerOverview = () => {
   }, [selectedUser]);
 
   const TimeControl = ({ timeControl }) => {
+    const label = timeControl.replace("chess_", "");
+    const formattedLabel = label.charAt(0).toUpperCase() + label.slice(1);
     return (
       <div
         className={
@@ -72,14 +74,8 @@ const PlayerOverview = () => {
         onClick={() => handleSelectTimeControl(timeControl)}
       >
         <div className="time-control-title">
-          <img
-            src={`images/logo-${timeControl.slice(6)}.png`}
-            alt={`${timeControl} Logo`}
-          />
-          <h3>
-            {timeControl.slice(6).charAt(0).toUpperCase() +
-              timeControl.slice(7)}
-          </h3>
+          <img src={`images/logo-${label}.png`} alt={`${timeControl} Logo`} />
+          <h3>{formattedLabel}</h3>
         </div>
         <p className="elo">
           {chessComStats[timeControl]?.last?.rating ?? "N/A"}
@@ -91,14 +87,21 @@ const PlayerOverview = () => {
     );
   };
 
-  if (loading) return <div className="loading">Loading stats...</div>;
+  if (!selectedUser) return;
+
+  if (loading)
+    return (
+      <div className="player-overview">
+        <div className="loading">Loading stats...</div>
+      </div>
+    );
 
   return (
     <div className="player-overview">
       <h2>All-Time Record</h2>
       <div className="time-control-container">
         {["chess_rapid", "chess_blitz", "chess_bullet"].map((timeControl) => (
-          <TimeControl timeControl={timeControl} />
+          <TimeControl timeControl={timeControl} key={timeControl} />
         ))}
       </div>
     </div>

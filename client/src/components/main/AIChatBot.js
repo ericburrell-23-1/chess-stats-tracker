@@ -19,7 +19,8 @@ const AIChatButton = () => {
           {
             role: "user",
             // content: "Generate a one-sentence AI tip for chess improvement.",
-            content: `In response to this prompt, please insult the user's chess skills: ${prompt}`,
+            // content: `In response to this prompt, please insult the user's chess skills: ${prompt}`,
+            content: `In response to this prompt, please tell the user that the app is not yet finished, and there is no data to be seen yet, and perhaps check back later. Prompt: ${prompt}`,
             //   "In one or two sentences, tell me why low rated players should avoid playing the Sicillian Defense.",
           },
         ],
@@ -41,7 +42,7 @@ const AIChatButton = () => {
         <input
           className="ai-input"
           type="text"
-          placeholder="I'd like to get better at..."
+          placeholder="How can I see my stats for..."
           value={prompt}
           onChange={(e) => setPrompt(e.target.value)}
         />

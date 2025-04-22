@@ -1,4 +1,5 @@
 const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+const CHESS_COM_URL = "https://api.chess.com/pub/player/";
 
 export const fetchUsers = async (searchTerm = "") => {
   try {
@@ -28,5 +29,20 @@ export const addNewUser = async (username) => {
   } catch (error) {
     console.error("Error adding new user:", error);
     return { status: 500, data: { error: "Network error" } };
+  }
+};
+
+const headers = {
+  "User-Agent": "Chess-stat-tracker client/1.0 (development phase)",
+};
+export const fetchChessComStats = async (username) => {
+  try {
+    const url = CHESS_COM_URL + username + "/stats";
+    const response = await fetch(url, { headers: headers });
+
+    return await response.json();
+  } catch (error) {
+    console.error("Error fetching stats:", error);
+    return {};
   }
 };
